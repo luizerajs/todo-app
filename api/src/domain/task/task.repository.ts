@@ -7,7 +7,9 @@ console.log(AppDataSource);
 const TaskRepository = AppDataSource.getRepository(Task);
 
 const getTasks = async (): Promise<OutputTaskDTO[]> => {
-  return await TaskRepository.find();
+  return await TaskRepository.find({
+    order: { createdAt: { direction: "DESC" } },
+  });
 };
 
 const getTask = (taskId: string): Promise<OutputTaskDTO | null> => {
