@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 
 import { InputTaskDTO } from "../../../domain/task/task.interface";
 import { TaskRepository } from "../../../domain/task";
+import { TaskStatus } from "@/domain/task/task.entity";
 
 const taskRoutes = Router();
 
@@ -28,7 +29,7 @@ taskRoutes.post("/", async (req: Request, res: Response) => {
 
 taskRoutes.put("/:taskId", async (req: Request, res: Response) => {
   const { taskId } = req.params as { taskId: string };
-  const { description } = req.body as InputTaskDTO;
+  const { description, status } = req.body as InputTaskDTO;
 
   if (!taskId) {
     return res
@@ -36,13 +37,7 @@ taskRoutes.put("/:taskId", async (req: Request, res: Response) => {
       .json({ status: 400, message: "ID task is missing!" });
   }
 
-  if (!description) {
-    return res
-      .status(400)
-      .json({ status: 400, message: "Description is missing!" });
-  }
-
-  const output = await TaskRepository.updateTask(taskId, description);
+  const output = await TaskRepository.updateTask(taskId, description, status);
 
   if (!output) {
     return res

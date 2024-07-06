@@ -1,6 +1,6 @@
 import { AppDataSource } from "@/infra/database/data-source";
 import { InputTaskDTO, OutputTaskDTO } from ".";
-import { Task } from "./task.entity";
+import { Task, TaskStatus } from "./task.entity";
 
 console.log(AppDataSource);
 
@@ -9,6 +9,7 @@ const TaskRepository = AppDataSource.getRepository(Task);
 const getTasks = async (): Promise<OutputTaskDTO[]> => {
   return await TaskRepository.find({
     order: { createdAt: { direction: "DESC" } },
+    where: { status: TaskStatus.TODO },
   });
 };
 
@@ -22,7 +23,8 @@ const createTask = (task: InputTaskDTO): Promise<OutputTaskDTO> => {
 
 const updateTask = async (
   taskId: string,
-  description: string
+  description?: string,
+  status?: TaskStatus
 ): Promise<OutputTaskDTO | null> => {
   const task = await TaskRepository.findOne({ where: { id: taskId } });
 
@@ -30,7 +32,13 @@ const updateTask = async (
     return null;
   }
 
-  task.description = description;
+  if (description) {
+    task.description = description;
+  }
+
+  if (status) {
+    task.status = status;
+  }
 
   return TaskRepository.save(task);
 };

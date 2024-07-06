@@ -1,5 +1,8 @@
+import { TaskStatus } from "./task.entity";
+
 export interface InputTaskDTO {
   description?: string;
+  status?: TaskStatus;
 }
 
 export interface OutputTaskDTO {
