@@ -1,9 +1,9 @@
 "use client";
 
 import { Task } from "@/app/api/tasks/domain/task.entity";
-import Logo from "../logo/logo.component";
-import List from "../list/list.component";
-import AddList from "../add-list/add-list.component";
+import { Logo } from "@/app/components/logo";
+import { ListItem } from "@/app/components/list";
+import { AddList } from "@/app/components/add-list";
 
 export interface CardProps {
   tasks: Task[];
@@ -18,7 +18,7 @@ export default function Card({ tasks }: CardProps) {
           <h4 className="font-semibold ml-3 text-lg">Todo list</h4>
         </div>
         {tasks.map((task) => (
-          <List key={task.id} task={task} />
+          <ListItem key={task.id} task={task} />
         ))}
 
         <AddList />

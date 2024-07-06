@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import getTasks from "./api/tasks/usecases/get-tasks";
-import Card from "./components/card/card.component";
+import { CardList } from "./components/card";
 
 export default function Home() {
   const { data: tasks } = useQuery({ queryKey: ["tasks"], queryFn: getTasks });
@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <main className="flex items-center justify-center w-screen h-screen font-medium">
-      <Card tasks={tasks} />
+      <CardList tasks={tasks} />
     </main>
   );
 }

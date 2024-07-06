@@ -15,8 +15,6 @@ taskRoutes.get("/", async (_req: Request, res: Response) => {
 taskRoutes.post("/", async (req: Request, res: Response) => {
   const { description } = req.body as InputTaskDTO;
 
-  console.log(req.body);
-
   if (!description) {
     return res
       .status(400)
