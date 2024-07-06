@@ -2,7 +2,6 @@ import { Request, Response, Router } from "express";
 
 import { InputTaskDTO } from "../../../domain/task/task.interface";
 import { TaskRepository } from "../../../domain/task";
-import { TaskStatus } from "@/domain/task/task.entity";
 
 const taskRoutes = Router();
 
